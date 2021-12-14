@@ -20,18 +20,18 @@ public class App {
         Repositorio r = new Repositorio(1L,"repositorio1", "2222-22-22",pro);
 
         ir.insert(i);
-        ir.selectAll();
-        System.out.println(pr.insert(p));
-        System.out.println(pr.insert(p2));
-        System.out.println(pr.selectAll().size());
+        System.out.println(ir.selectAll());
+        pr.insert(p);
+        pr.insert(p2);
+        System.out.println(pr.selectAll());
         cr.insert(c);
-        cr.selectAll();
+        System.out.println(cr.selectAll());
         dr.insert(d);
-        dr.selectAll();
+        System.out.println(dr.selectAll());
         prr.insert(pro);
-        prr.selectAll();
+        System.out.println(prr.selectAll());
         rr.insert(r);
-        rr.selectAll();
+        System.out.println(rr.selectAll());
 
     }
 }

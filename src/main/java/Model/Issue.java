@@ -13,6 +13,7 @@ public class Issue {
     private List<Programador> programadores;
     private List<Commits> commits;
     private boolean termiando;
+    private Proyecto proyecto;
 
     @Id
     public long getId() {
@@ -75,6 +76,15 @@ public class Issue {
     @OneToMany
     public List<Commits> getCommits() {
         return commits;
+    }
+
+    @ManyToOne
+    public Proyecto getProyecto() {
+        return proyecto;
+    }
+
+    public void setProyecto(Proyecto proyecto) {
+        this.proyecto = proyecto;
     }
 
     public Issue(){}

@@ -4,48 +4,62 @@ import Model.Repositorio;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.util.List;
 
 public class RepositorioRepository {
-    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
 
-    public List<Repositorio> selectAll(){
-        EntityManager manager = entityManagerFactory.createEntityManager();
+    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("practica");
+    EntityManager manager = entityManagerFactory.createEntityManager();
+    EntityTransaction transaction = manager.getTransaction();
 
-        System.out.println("Listando todos los Repositorio");
-        List<Repositorio> Repositorios = (List<Repositorio>) manager.createQuery("from Repositorio").getResultList();
-        Repositorios.forEach(System.out::println);
-        return Repositorios;
+    /**
+     * Creation of the method that search all the repositories of the database
+     * @return repositories and print the repository list
+     */
+    public List<Repositorio> selectAll() {
+        System.out.println("Listado de todos los Repositorios: ");
+        List<Repositorio> repositorios = (List<Repositorio>) manager.createQuery("FROM Repositorio ").getResultList();
+        return repositorios;
     }
 
-    public Repositorio insert(Repositorio d){
-        EntityManager manager = entityManagerFactory.createEntityManager();
-
-        System.out.println("Insertando Repositorio");
+    /**
+     * Creation of the method that insert a repository into the database
+     * @param c
+     * @return repository
+     */
+    public Repositorio insert(Repositorio c) {
         manager.getTransaction().begin();
-        manager.persist(d);
+        manager.persist(c);
         manager.getTransaction().commit();
-        return d;
+        return c;
     }
 
-    public Repositorio update(Repositorio d){
-        EntityManager manager = entityManagerFactory.createEntityManager();
-
-        System.out.println("actualizando Repositorio");
+    /**
+     * Creation of the method that update a repository of the database
+     * @param c
+     * @return repository
+     */
+    public Repositorio update(Repositorio c){
         manager.getTransaction().begin();
-        manager.merge(d);
+        manager.merge(c);
         manager.getTransaction().commit();
-        return d;
+        System.out.println("Elemento Actualizado: "+c.toString());
+        return c;
     }
 
-    public Repositorio delete(Repositorio d){
-        EntityManager manager = entityManagerFactory.createEntityManager();
-
-        System.out.println("borrando Repositorio");
+    /**
+     * Creation of the method that delete a repository of the database
+     * @param c
+     * @return repository
+     */
+    public Repositorio delete(Repositorio c){
         manager.getTransaction().begin();
-        manager.remove(d.getId());
+        c = manager.find(Repositorio.class, c.getId());
+        manager.remove(c);
         manager.getTransaction().commit();
-        return d;
+        System.out.println("Elemento Borrado: "+ c.toString());
+        return c;
     }
 }

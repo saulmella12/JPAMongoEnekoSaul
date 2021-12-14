@@ -4,48 +4,62 @@ import Model.Proyecto;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.util.List;
 
 public class ProyectoRepository {
-    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
 
-    public List<Proyecto> selectAll(){
-        EntityManager manager = entityManagerFactory.createEntityManager();
+    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("practica");
+    EntityManager manager = entityManagerFactory.createEntityManager();
+    EntityTransaction transaction = manager.getTransaction();
 
-        System.out.println("Listando todos los Proyecto");
-        List<Proyecto> Proyectos = (List<Proyecto>) manager.createQuery("from Proyecto").getResultList();
-        Proyectos.forEach(System.out::println);
-        return Proyectos;
+    /**
+     * Creation of the method that search all the projects of the database
+     * @return projects and print the projects list
+     */
+    public List<Proyecto> selectAll() {
+        System.out.println("Listado de todos los Proyectos: ");
+        List<Proyecto> proyectos = (List<Proyecto>) manager.createQuery("FROM Proyecto ").getResultList();
+        return proyectos;
     }
 
-    public Proyecto insert(Proyecto d){
-        EntityManager manager = entityManagerFactory.createEntityManager();
-
-        System.out.println("Insertando Proyecto");
+    /**
+     * Creation of the method that insert a project into the database
+     * @param c
+     * @return project
+     */
+    public Proyecto insert(Proyecto c) {
         manager.getTransaction().begin();
-        manager.persist(d);
+        manager.persist(c);
         manager.getTransaction().commit();
-        return d;
+        return c;
     }
 
-    public Proyecto update(Proyecto d){
-        EntityManager manager = entityManagerFactory.createEntityManager();
-
-        System.out.println("actualizando Proyecto");
+    /**
+     * Creation of the method that update a project of the database
+     * @param c
+     * @return project
+     */
+    public Proyecto update(Proyecto c){
         manager.getTransaction().begin();
-        manager.merge(d);
+        manager.merge(c);
         manager.getTransaction().commit();
-        return d;
+        System.out.println("Elemento Actualizado: "+c.toString());
+        return c;
     }
 
-    public Proyecto delete(Proyecto d){
-        EntityManager manager = entityManagerFactory.createEntityManager();
-
-        System.out.println("borrando Proyecto");
+    /**
+     * Creation of the method that delete a project of the database
+     * @param c
+     * @return project
+     */
+    public Proyecto delete(Proyecto c){
         manager.getTransaction().begin();
-        manager.remove(d.getId());
+        c = manager.find(Proyecto.class, c.getId());
+        manager.remove(c);
         manager.getTransaction().commit();
-        return d;
+        System.out.println("Elemento Borrado: "+ c.toString());
+        return c;
     }
 }
