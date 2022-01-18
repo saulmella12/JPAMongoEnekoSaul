@@ -16,10 +16,11 @@ public class ProgramadorDTO {
     private double salario;
     private String usuario;
     private String passwd;
-    private List<Proyecto> proyectos;
-    private List<Commits> commits;
-    private List<Issue> issues;
-    /*private List<Tecnologia> tecnologias;*/
+    private DepartamentoDTO departamento;
+    private List<ProyectoDTO> proyectos;
+//    private List<CommitDTO> commits;
+    private List<IssueDTO> issues;
+    private List<String> tecnologias;
 
     public void toJSon(Object o){
         final Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();

@@ -12,10 +12,10 @@ import java.util.List;
 public class RepositorioDTO {
     private long id;
     private String nombre;
+    private ProyectoDTO idProyecto;
     private String fecha;
-    private Proyecto proyecto;
-    private List<Commits> commits;
-    private List<Issue> issues;
+    private List<CommitDTO> commits;
+    private List<IssueDTO> issues;
 
     public void toJSon(Object o){
         final Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
