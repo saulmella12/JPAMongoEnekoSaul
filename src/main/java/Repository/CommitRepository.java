@@ -1,6 +1,8 @@
 package Repository;
 
-import Model.Commits;
+import DAO.Commits;
+import DTO.CommitDTO;
+import DTO.RepositorioDTO;
 
 import javax.persistence.*;
 import java.util.List;
@@ -57,5 +59,8 @@ public class CommitRepository {
             manager.getTransaction().commit();
             System.out.println("Elemento Borrado: "+ c.toString());
             return c;
+    }
+
+    public CommitDTO selectCommitById(Long v) {
     }
 }

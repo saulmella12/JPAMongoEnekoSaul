@@ -1,7 +1,5 @@
 package DTO;
 
-import Model.Issue;
-import Model.Programador;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.Data;
@@ -12,9 +10,9 @@ public class CommitDTO {
     private String titulo;
     private String texto;
     private String fecha;
-    private RepositorioDTO idRepositorio;
-    private IssueDTO idIssue;
-    private ProyectoDTO idProyecto;
+    private RepositorioDTO repositorio;
+    private IssueDTO issue;
+    private ProyectoDTO proyecto;
     private ProgramadorDTO creador;
 
     public void toJSon(Object o){

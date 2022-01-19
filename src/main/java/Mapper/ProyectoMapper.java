@@ -1,7 +1,7 @@
 package Mapper;
 
 import DTO.ProyectoDTO;
-import Model.Proyecto;
+import DAO.Proyecto;
 
 public class ProyectoMapper {
     public ProyectoDTO toDTO(Proyecto c){
@@ -11,20 +11,24 @@ public class ProyectoMapper {
         dto.setJefe(c.getJefe());
         dto.setNombre(c.getNombre());
         dto.setPresupuesto(c.getPresupuesto());
-        dto.setFechaFin(c.getFechaFin());
         dto.setFechaInicio(c.getFechaInicio());
+        dto.setFechaFin(c.getFechaFin());
+        dto.setTecnologias(c.getTecnologias());
+
         return dto;
     }
 
-    public Proyecto toModel(ProyectoDTO c){
+    public Proyecto toDAO(ProyectoDTO c){
         Proyecto proyecto = new Proyecto();
         proyecto.setId(c.getId());
         proyecto.setTermiando(c.isTermiando());
-        proyecto.setJefe(c.getJefe());
+        proyecto.setIdJefe(c.getJefe());
         proyecto.setNombre(c.getNombre());
         proyecto.setPresupuesto(c.getPresupuesto());
-        proyecto.setFechaFin(c.getFechaFin());
         proyecto.setFechaInicio(c.getFechaInicio());
+        proyecto.setFechaFin(c.getFechaFin());
+        proyecto.setTecnologias(c.getTecnologias());
+
         return proyecto;
     }
 }

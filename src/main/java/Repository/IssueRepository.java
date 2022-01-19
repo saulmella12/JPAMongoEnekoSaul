@@ -2,7 +2,8 @@ package Repository;
 
 
 
-import Model.Issue;
+import DAO.Issue;
+import DTO.IssueDTO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -67,5 +68,9 @@ public class IssueRepository {
         manager.getTransaction().commit();
         System.out.println("Elemento Borrado: "+ i.toString());
         return i;
+    }
+
+    public IssueDTO selectIssueById(long idIssue) {
+        return null;
     }
 }

@@ -1,4 +1,4 @@
-import Model.*;
+import DAO.*;
 import Repository.*;
 
 public class App {

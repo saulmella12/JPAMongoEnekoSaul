@@ -1,6 +1,7 @@
 package Repository;
 
-import Model.Proyecto;
+import DAO.Proyecto;
+import DTO.ProyectoDTO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -61,5 +62,11 @@ public class ProyectoRepository {
         manager.getTransaction().commit();
         System.out.println("Elemento Borrado: "+ c.toString());
         return c;
+    }
+
+    public ProyectoDTO selectProyectoById(long idProyecto) {
+    }
+
+    public List<ProyectoDTO> selectSegunEstado(long id, boolean enCurso) {
     }
 }

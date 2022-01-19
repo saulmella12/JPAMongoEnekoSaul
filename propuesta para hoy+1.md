@@ -1,3 +1,3 @@
 ## Propuesta
 
-_empezar con JPA+mongo (adaptar los mapper y reporitory a lo que hemos cambiado)_
+_mirar las listas de los mapper de los que se ocupo Saul y empezar a hacer funcionales los nuevos metodos de los repositorios_

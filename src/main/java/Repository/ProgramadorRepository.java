@@ -1,13 +1,13 @@
 package Repository;
 
-import Model.Programador;
+import DAO.Programador;
+import DTO.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ProgramadorRepository {
 
@@ -65,5 +65,7 @@ public class ProgramadorRepository {
         return p;
     }
 
-
+    public ProgramadorDTO selectProgramadorById(long idCreador) {
+        return null;
+    }
 }

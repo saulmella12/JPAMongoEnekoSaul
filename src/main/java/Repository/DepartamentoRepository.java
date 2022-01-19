@@ -1,7 +1,8 @@
 package Repository;
 
 
-import Model.Departamento;
+import DAO.Departamento;
+import DTO.DepartamentoDTO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -61,5 +62,9 @@ public class DepartamentoRepository {
         manager.getTransaction().commit();
         System.out.println("Elemento Borrado: "+ d.toString());
         return d;
+    }
+
+    public DepartamentoDTO selectDepartamentoById(Long idDepartamento) {
+        return null;
     }
 }

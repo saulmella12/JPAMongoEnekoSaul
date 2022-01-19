@@ -1,42 +1,42 @@
 package Mapper;
 
 import DTO.CommitDTO;
-import Model.Commits;
-import Model.Issue;
-import Model.Programador;
-import Repository.IssueRepository;
+import DAO.Commits;
+import DAO.Issue;
+import DAO.Programador;
+import Repository.*;
 
 public class CommitMapper {
 
+    private RepositorioRepository rr = new RepositorioRepository();
+    private IssueRepository ir = new IssueRepository();
+    private ProyectoRepository pr =new ProyectoRepository();
+    private ProgramadorRepository ppr = new ProgramadorRepository();
+
     public CommitDTO toDTO(Commits c){
         CommitDTO dto = new CommitDTO();
-        dto.setFecha(c.getFecha());
         dto.setId(c.getId());
-        dto.setBase(c.getBase());
-        dto.setCreador(c.getCreador());
-        dto.setTexto(c.getTexto());
         dto.setTitulo(c.getTitulo());
+        dto.setTexto(c.getTexto());
+        dto.setFecha(c.getFecha());
+        dto.setRepositorio(rr.selectRepositorioById(c.getIdRepositorio()));
+        dto.setIssue(ir.selectIssueById(c.getIdIssue()));
+        dto.setProyecto(pr.selectProyectoById(c.getIdProyecto()));
+        dto.setCreador(ppr.selectProgramadorById(c.getIdCreador()));
+
         return dto;
     }
 
-    public Commits toModel(CommitDTO c){
+    public Commits toDAO(CommitDTO c){
         Commits commit = new Commits();
-        commit.setFecha(c.getFecha());
         commit.setId(c.getId());
-        commit.setBase(c.getBase());
-        commit.setCreador(c.getCreador());
-        commit.setTexto(c.getTexto());
         commit.setTitulo(c.getTitulo());
+        commit.setTexto(c.getTexto());
+        commit.setFecha(c.getFecha());
+        commit.setIdRepositorio(c.getRepositorio().getId());
+        commit.setIdProyecto(c.getProyecto().getId());
+        commit.setIdCreador(c.getCreador().getId());
 
-        if(validateCommit(commit.getCreador(),commit.getBase())) {
-            return commit;
-        }
-        return null;
-    }
-
-    private boolean validateCommit(Programador p, Issue i){
-        IssueRepository ir = new IssueRepository();
-
-        return ir.selectById(i.getId()).getProgramadores().contains(p);
+        return commit;
     }
 }

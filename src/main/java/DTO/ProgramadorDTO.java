@@ -1,8 +1,5 @@
 package DTO;
 
-import Model.Commits;
-import Model.Issue;
-import Model.Proyecto;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.Data;
@@ -18,7 +15,7 @@ public class ProgramadorDTO {
     private String passwd;
     private DepartamentoDTO departamento;
     private List<ProyectoDTO> proyectos;
-//    private List<CommitDTO> commits;
+    private List<CommitDTO> commits;
     private List<IssueDTO> issues;
     private List<String> tecnologias;
 

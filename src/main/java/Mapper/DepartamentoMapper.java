@@ -1,28 +1,50 @@
 package Mapper;
 
 import DTO.DepartamentoDTO;
-import Model.Departamento;
+import DAO.Departamento;
+import DTO.ProyectoDTO;
+import Repository.ProgramadorRepository;
+import Repository.ProyectoRepository;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class DepartamentoMapper {
+
+    private ProyectoRepository pr = new ProyectoRepository();
+    private ProgramadorRepository ppr = new ProgramadorRepository();
+
     public DepartamentoDTO toDTO(Departamento c){
         DepartamentoDTO dto = new DepartamentoDTO();
         dto.setId(c.getId());
+        dto.setEnCurso(pr.selectSegunEstado(dto.getId(),true));
         dto.setNombre(c.getNombre());
+        dto.setJefe(ppr.selectProgramadorById(c.getIdJefe()));
         dto.setPresupuesto(c.getPresupuesto());
-        dto.setJefe(c.getJefe());
-        dto.setFinalizados(c.getFinalizados());
-        dto.setProyectos(c.getProyectos());
+        dto.setFinalizados(pr.selectSegunEstado(dto.getId(),false));
+        dto.setJefes(c.getJefes());
         return dto;
     }
 
-    public Departamento toModel(DepartamentoDTO c){
+    public Departamento toDAO(DepartamentoDTO c){
         Departamento departamento = new Departamento();
+        List<Long> enCurso = c.getEnCurso().stream().map(this::getIds).collect(Collectors.toList());
+        List<Long> finalizados = c.getFinalizados().stream().map(this::getIds).collect(Collectors.toList());
+
         departamento.setId(c.getId());
+        departamento.setEnCurso(enCurso);
         departamento.setNombre(c.getNombre());
+        departamento.setIdJefe(c.getJefe().getId());
         departamento.setPresupuesto(c.getPresupuesto());
-        departamento.setJefe(c.getJefe());
-        departamento.setFinalizados(c.getFinalizados());
-        departamento.setProyectos(c.getProyectos());
+        departamento.setFinalizados(finalizados);
+        departamento.setJefes(c.getJefes());
+
         return departamento;
+    }
+
+    private long getIds(ProyectoDTO p){
+        return p.getId();
     }
 }

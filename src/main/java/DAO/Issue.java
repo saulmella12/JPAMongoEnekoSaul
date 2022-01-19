@@ -1,4 +1,4 @@
-package Model;
+package DAO;
 
 import lombok.Data;
 
@@ -14,7 +14,7 @@ public class Issue {
     @Column private String texto;
     @Column private String fecha;
     @ElementCollection private List<Long> programadores;
-    //private List<Commits> commits;
+    @ElementCollection private List<Long> commits;
     @Column private long idProyecto;
     @Column private long idRepositorio;
     @Column private boolean terminado;

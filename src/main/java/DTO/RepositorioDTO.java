@@ -1,8 +1,5 @@
 package DTO;
 
-import Model.Commits;
-import Model.Issue;
-import Model.Proyecto;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.Data;

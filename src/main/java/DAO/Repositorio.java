@@ -1,4 +1,4 @@
-package Model;
+package DAO;
 
 import lombok.Data;
 
@@ -13,5 +13,6 @@ public class Repositorio {
     @Column private String nombre;
     @Column private long idProyecto;
     @Column private String fecha;
+    @ElementCollection private List<Long> commits;
     @ElementCollection private List<Long> issues;
 }

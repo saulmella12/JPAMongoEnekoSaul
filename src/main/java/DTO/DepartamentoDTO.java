@@ -13,7 +13,7 @@ public class DepartamentoDTO {
     private ProgramadorDTO jefe;
     private double presupuesto;
     private List<ProyectoDTO> finalizados;
-    private List<ProgramadorDTO> jefes;
+    private List<Long> jefes;
 
     public void toJSon(Object o){
         final Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();

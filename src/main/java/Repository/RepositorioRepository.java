@@ -1,6 +1,7 @@
 package Repository;
 
-import Model.Repositorio;
+import DAO.Repositorio;
+import DTO.RepositorioDTO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -61,5 +62,8 @@ public class RepositorioRepository {
         manager.getTransaction().commit();
         System.out.println("Elemento Borrado: "+ c.toString());
         return c;
+    }
+
+    public RepositorioDTO selectRepositorioById(long idRepositorio) {
     }
 }

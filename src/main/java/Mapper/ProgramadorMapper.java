@@ -1,41 +1,49 @@
 package Mapper;
 
-import DTO.IssueDTO;
+import DTO.DepartamentoDTO;
 import DTO.ProgramadorDTO;
-import Model.Issue;
-import Model.Programador;
-import Repository.DepartamentoRepository;
-import Repository.ProyectoRepository;
-
-import java.util.stream.Collectors;
+import DAO.Programador;
+import Repository.*;
 
 public class ProgramadorMapper {
     public ProgramadorDTO toDTO(Programador p){
         ProgramadorDTO dto = new ProgramadorDTO();
+        DepartamentoRepository dr = new DepartamentoRepository();
+        ProyectoRepository pr = new ProyectoRepository();
+        CommitRepository cr = new CommitRepository();
+        IssueRepository ir = new IssueRepository();
         dto.setId(p.getId());
         dto.setNombre(p.getNombre());
-        dto.setSalario(p.getSalario());
-        dto.setCommits(p.getCommits());
         dto.setAlta(p.getAlta());
-        dto.setIssues(p.getIssues());
-        dto.setPasswd(p.getPasswd());
-        dto.setProyectos(p.getProyectos());
+        dto.setSalario(p.getSalario());
         dto.setUsuario(p.getUsuario());
+        dto.setPasswd(p.getPasswd());
+        dto.setDepartamento(dr.selectDepartamentoById(p.getIdDepartamento()));
+        dto.setProyectos(p.getProyectos());
+        dto.setCommits(p.getCommits()));
+        dto.setIssues(p.getIssues()));
+        dto.setTecnologias(p.getTecnologias());
         return dto;
     }
 
-    public Programador toModel(ProgramadorDTO p){
+    public Programador toDAO(ProgramadorDTO p){
         Programador programador = new Programador();
-
+        DepartamentoRepository dr = new DepartamentoRepository();
+        ProyectoRepository pr = new ProyectoRepository();
+        CommitRepository cr = new CommitRepository();
+        IssueRepository ir = new IssueRepository();
         programador.setId(p.getId());
         programador.setNombre(p.getNombre());
-        programador.setSalario(p.getSalario());
-        programador.setCommits(p.getCommits());
         programador.setAlta(p.getAlta());
-        programador.setIssues(p.getIssues());
+        programador.setSalario(p.getSalario());
         programador.setPasswd(p.getPasswd());
-        programador.setProyectos(p.getProyectos());
         programador.setUsuario(p.getUsuario());
+        programador.setIdDepartamento(p.getDepartamento().getId());
+        programador.setProyectos(p.getProyectos());
+        programador.setCommits(p.getCommits());
+        programador.setIssues(p.getIssues()));
+        programador.setTecnologias(p.getTecnologias());
+
 
         if(checkProgramadorJefe(programador)) {
             return programador;
