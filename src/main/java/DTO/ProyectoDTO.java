@@ -16,6 +16,7 @@ public class ProyectoDTO {
     private String fechaInicio;
     private String fechaFin;
     private List<String> tecnologias;
+    private DepartamentoDTO departamento;
 
     public void toJSon(Object o){
         final Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();

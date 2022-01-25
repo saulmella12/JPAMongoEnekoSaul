@@ -1,12 +1,10 @@
 package Repository;
 
+import DAO.Commits;
 import DAO.Repositorio;
 import DTO.RepositorioDTO;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import java.util.List;
 
 public class RepositorioRepository {
@@ -20,9 +18,11 @@ public class RepositorioRepository {
      * @return repositories and print the repository list
      */
     public List<Repositorio> selectAll() {
-        System.out.println("Listado de todos los Repositorios: ");
-        List<Repositorio> repositorios = (List<Repositorio>) manager.createQuery("FROM Repositorio ").getResultList();
-        return repositorios;
+        manager.getTransaction().begin();
+        TypedQuery<Repositorio> query = manager.createNamedQuery("Repositorio.findAll", Repositorio.class);
+        List<Repositorio> lista = query.getResultList();
+        manager.close();
+        return lista;
     }
 
     /**
@@ -55,13 +55,15 @@ public class RepositorioRepository {
      * @param c
      * @return repository
      */
-    public Repositorio delete(Repositorio c){
+    public Repositorio delete(Repositorio c) throws Exception {
         manager.getTransaction().begin();
-        c = manager.find(Repositorio.class, c.getId());
-        manager.remove(c);
-        manager.getTransaction().commit();
-        System.out.println("Elemento Borrado: "+ c.toString());
-        return c;
+        Repositorio r = manager.find(Repositorio.class,c);
+        manager.close();
+
+        if(r==null){
+            throw new Exception("depo bulunamadı");
+        }
+        return r;
     }
 
     public RepositorioDTO selectRepositorioById(long idRepositorio) {

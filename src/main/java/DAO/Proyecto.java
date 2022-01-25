@@ -7,6 +7,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name="Proyecto")
+@NamedQuery(name = "Proyecto.findAll", query = "Select py from Proyecto py")
 public class Proyecto {
     @Id private long id;
     @Column private boolean termiando;
@@ -16,4 +17,5 @@ public class Proyecto {
     @Column private String fechaInicio;
     @Column private String fechaFin;
     @ElementCollection private List<String> tecnologias;
+    @Column private long departamento;
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name="Departamento")
+@NamedQuery(name = "Departamento.findAll", query = "Select d from Departamento d")
 @Data
 public class Departamento {
 

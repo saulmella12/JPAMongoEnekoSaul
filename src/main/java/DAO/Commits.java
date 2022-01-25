@@ -7,6 +7,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @Table(name="Commits")
+@NamedQuery(name = "Commits.findAll", query = "Select c from Commits c")
 public class Commits {
     @Id private long id;
     @Column private String titulo;

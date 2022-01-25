@@ -12,17 +12,20 @@ public class CommitMapper {
     private IssueRepository ir = new IssueRepository();
     private ProyectoRepository pr =new ProyectoRepository();
     private ProgramadorRepository ppr = new ProgramadorRepository();
+    private IssueMapper im = new IssueMapper();
+    private ProyectoMapper pm = new ProyectoMapper();
+    private ProgramadorMapper ppm = new ProgramadorMapper();
 
-    public CommitDTO toDTO(Commits c){
+    public CommitDTO toDTO(Commits c) throws Exception {
         CommitDTO dto = new CommitDTO();
         dto.setId(c.getId());
         dto.setTitulo(c.getTitulo());
         dto.setTexto(c.getTexto());
         dto.setFecha(c.getFecha());
         dto.setRepositorio(rr.selectRepositorioById(c.getIdRepositorio()));
-        dto.setIssue(ir.selectIssueById(c.getIdIssue()));
-        dto.setProyecto(pr.selectProyectoById(c.getIdProyecto()));
-        dto.setCreador(ppr.selectProgramadorById(c.getIdCreador()));
+        dto.setIssue(im.toDTO(ir.selectIssueById(c.getIdIssue())));
+        dto.setProyecto(pm.toDTO(pr.selectProyectoById(c.getIdProyecto())));
+        dto.setCreador(ppm.toDTO(ppr.selectProgramadorById(c.getIdCreador())));
 
         return dto;
     }

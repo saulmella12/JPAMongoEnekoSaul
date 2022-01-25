@@ -2,13 +2,19 @@ package Mapper;
 
 import DTO.ProyectoDTO;
 import DAO.Proyecto;
+import Repository.ProgramadorRepository;
 
 public class ProyectoMapper {
-    public ProyectoDTO toDTO(Proyecto c){
+
+    private ProgramadorRepository pr = new ProgramadorRepository();
+    private ProgramadorMapper pm = new ProgramadorMapper();
+
+    public ProyectoDTO toDTO(Proyecto c) throws Exception {
+
         ProyectoDTO dto = new ProyectoDTO();
         dto.setId(c.getId());
         dto.setTermiando(c.isTermiando());
-        dto.setJefe(c.getJefe());
+        dto.setJefe(pm.toDTO(pr.selectProgramadorById(c.getIdJefe())));
         dto.setNombre(c.getNombre());
         dto.setPresupuesto(c.getPresupuesto());
         dto.setFechaInicio(c.getFechaInicio());
@@ -22,7 +28,7 @@ public class ProyectoMapper {
         Proyecto proyecto = new Proyecto();
         proyecto.setId(c.getId());
         proyecto.setTermiando(c.isTermiando());
-        proyecto.setIdJefe(c.getJefe());
+        proyecto.setIdJefe(c.getJefe().getId());
         proyecto.setNombre(c.getNombre());
         proyecto.setPresupuesto(c.getPresupuesto());
         proyecto.setFechaInicio(c.getFechaInicio());

@@ -4,7 +4,7 @@ import Repository.*;
 public class App {
     public static void main(String[] args) {
 
-        CommitRepository cr = new CommitRepository();
+        /*CommitRepository cr = new CommitRepository();
         DepartamentoRepository dr = new DepartamentoRepository();
         IssueRepository ir = new IssueRepository();
         ProgramadorRepository pr = new ProgramadorRepository();
@@ -31,7 +31,7 @@ public class App {
         prr.insert(pro);
         System.out.println(prr.selectAll());
         rr.insert(r);
-        System.out.println(rr.selectAll());
+        System.out.println(rr.selectAll());*/
 
     }
 }

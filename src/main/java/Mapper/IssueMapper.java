@@ -20,8 +20,11 @@ public class IssueMapper {
     private CommitRepository cr = new CommitRepository();
     private ProyectoRepository ppr = new ProyectoRepository();
     private RepositorioRepository rr = new RepositorioRepository();
+    private ProyectoMapper pm = new ProyectoMapper();
+    private CommitMapper cm = new CommitMapper();
+    private ProgramadorMapper ppm = new ProgramadorMapper();
 
-    public IssueDTO toDTO(Issue c){
+    public IssueDTO toDTO(Issue c) throws Exception {
         IssueDTO dto = new IssueDTO();
 
         dto.setId(c.getId());
@@ -30,7 +33,7 @@ public class IssueMapper {
         dto.setFecha(c.getFecha());
         dto.setProgramadores(getProgramadorList(c.getProgramadores()));
         dto.setCommits(getCommits(c.getCommits()));
-        dto.setProyecto(ppr.selectProyectoById(c.getIdProyecto()));
+        dto.setProyecto(pm.toDTO(ppr.selectProyectoById(c.getIdProyecto())));
         dto.setRepositorio(rr.selectRepositorioById(c.getIdRepositorio()));
         dto.setTerminado(c.isTerminado());
 
@@ -57,13 +60,25 @@ public class IssueMapper {
 
     private List<ProgramadorDTO> getProgramadorList(List<Long> programadoresId){
         List<ProgramadorDTO> programadores = new ArrayList<>();
-        programadoresId.forEach(v->programadores.add(pr.selectProgramadorById(v)));
+        programadoresId.forEach(v-> {
+            try {
+                programadores.add(ppm.toDTO(pr.selectProgramadorById(v)));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         return programadores;
     }
 
     private List<CommitDTO> getCommits(List<Long> commitsId){
         List<CommitDTO> commits = new ArrayList<>();
-        commitsId.forEach(v->commits.add(cr.selectCommitById(v)));
+        commitsId.forEach(v-> {
+            try {
+                commits.add(cm.toDTO(cr.selectCommitById(v)));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         return commits;
     }
 

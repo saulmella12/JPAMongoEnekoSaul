@@ -1,13 +1,11 @@
 package Repository;
 
 
+import DAO.Commits;
 import DAO.Departamento;
 import DTO.DepartamentoDTO;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import java.util.List;
 
 public class DepartamentoRepository {
@@ -20,9 +18,11 @@ public class DepartamentoRepository {
      * @return null and print the list of departments
      */
     public List<Departamento> selectAll() {
-        System.out.println("Listado de todos los Departamentos: ");
-        List<Departamento> departamentos = (List<Departamento>) manager.createQuery("FROM Departamento ").getResultList();
-        return departamentos;
+        manager.getTransaction().begin();
+        TypedQuery<Departamento> query = manager.createNamedQuery("Departamento.findAll", Departamento.class);
+        List<Departamento> lista = query.getResultList();
+        manager.close();
+        return lista;
     }
 
     /**
@@ -64,7 +64,15 @@ public class DepartamentoRepository {
         return d;
     }
 
-    public DepartamentoDTO selectDepartamentoById(Long idDepartamento) {
-        return null;
+    public Departamento selectDepartamentoById(Long id) throws Exception {
+
+        manager.getTransaction().begin();
+        Departamento d = manager.find(Departamento.class,id);
+        manager.close();
+
+        if(d==null){
+            throw new Exception("departamento bulunamadı");
+        }
+        return d;
     }
 }

@@ -2,13 +2,11 @@ package Repository;
 
 
 
+import DAO.Commits;
 import DAO.Issue;
 import DTO.IssueDTO;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import java.util.List;
 
 public class IssueRepository {
@@ -21,9 +19,11 @@ public class IssueRepository {
      * @return issues and print the issue list
      */
     public List<Issue> selectAll() {
-        System.out.println("Listado de todos los Issues: ");
-        List<Issue> issues = (List<Issue>) manager.createQuery("FROM Issue ").getResultList();
-        return issues;
+        manager.getTransaction().begin();
+        TypedQuery<Issue> query = manager.createNamedQuery("Issue.findAll", Issue.class);
+        List<Issue> lista = query.getResultList();
+        manager.close();
+        return lista;
     }
 
     public Issue selectById(long id){
@@ -70,7 +70,15 @@ public class IssueRepository {
         return i;
     }
 
-    public IssueDTO selectIssueById(long idIssue) {
-        return null;
+    public Issue selectIssueById(long idIssue) throws Exception {
+
+        manager.getTransaction().begin();
+        Issue i = manager.find(Issue.class,idIssue);
+        manager.close();
+
+        if(i==null){
+            throw new Exception("issue bulunamadı");
+        }
+        return i;
     }
 }

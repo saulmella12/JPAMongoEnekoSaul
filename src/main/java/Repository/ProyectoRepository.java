@@ -1,12 +1,9 @@
 package Repository;
 
 import DAO.Proyecto;
-import DTO.ProyectoDTO;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProyectoRepository {
@@ -20,9 +17,11 @@ public class ProyectoRepository {
      * @return projects and print the projects list
      */
     public List<Proyecto> selectAll() {
-        System.out.println("Listado de todos los Proyectos: ");
-        List<Proyecto> proyectos = (List<Proyecto>) manager.createQuery("FROM Proyecto ").getResultList();
-        return proyectos;
+        manager.getTransaction().begin();
+        TypedQuery<Proyecto> query = manager.createNamedQuery("Proyecto.findAll", Proyecto.class);
+        List<Proyecto> lista = query.getResultList();
+        manager.close();
+        return lista;
     }
 
     /**
@@ -64,9 +63,27 @@ public class ProyectoRepository {
         return c;
     }
 
-    public ProyectoDTO selectProyectoById(long idProyecto) {
+    public Proyecto selectProyectoById(long idProyecto) throws Exception {
+
+        manager.getTransaction().begin();
+        Proyecto p = manager.find(Proyecto.class,idProyecto);
+        manager.close();
+
+        if(p==null){
+            throw new Exception("taslak bulunamadı");
+        }
+        return p;
     }
 
-    public List<ProyectoDTO> selectSegunEstado(long id, boolean enCurso) {
+    public List<Proyecto> selectSegunEstado(long id, boolean enCurso) {
+        List<Proyecto> proyectos = new ArrayList<>();
+
+        selectAll().forEach(v->{
+            if(v.getDepartamento() == id && v.isTermiando() == !enCurso){
+                proyectos.add(v);
+            }
+        });
+
+        return proyectos;
     }
 }

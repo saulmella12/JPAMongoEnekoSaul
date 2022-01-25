@@ -17,9 +17,11 @@ public class CommitRepository {
      * @return null and print the commit list
      */
     public List<Commits> selectAll() {
-        System.out.println("Listado de todos los Commits: ");
-        List<Commits> commits = (List<Commits>) manager.createQuery("FROM Commits ").getResultList();
-        return commits;
+        manager.getTransaction().begin();
+        TypedQuery<Commits> query = manager.createNamedQuery("Commits.findAll", Commits.class);
+        List<Commits> lista = query.getResultList();
+        manager.close();
+        return lista;
     }
 
     /**
@@ -61,6 +63,15 @@ public class CommitRepository {
             return c;
     }
 
-    public CommitDTO selectCommitById(Long v) {
+    public Commits selectCommitById(Long id) throws Exception {
+
+        manager.getTransaction().begin();
+        Commits c = manager.find(Commits.class,id);
+        manager.close();
+
+        if(c==null){
+            throw new Exception("commit bulunamadı");
+        }
+        return c;
     }
 }

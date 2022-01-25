@@ -1,12 +1,10 @@
 package Repository;
 
+import DAO.Commits;
 import DAO.Programador;
 import DTO.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import java.util.List;
 
 public class ProgramadorRepository {
@@ -20,9 +18,11 @@ public class ProgramadorRepository {
      * @return programmers and print the programmer list
      */
     public List<Programador> selectAll() {
-        System.out.println("Listado de todos los Programadors: ");
-        List<Programador> programadors = (List<Programador>) manager.createQuery("FROM Programador ").getResultList();
-        return programadors;
+        manager.getTransaction().begin();
+        TypedQuery<Programador> query = manager.createNamedQuery("Programador.findAll", Programador.class);
+        List<Programador> lista = query.getResultList();
+        manager.close();
+        return lista;
     }
 
     /**
@@ -65,7 +65,15 @@ public class ProgramadorRepository {
         return p;
     }
 
-    public ProgramadorDTO selectProgramadorById(long idCreador) {
-        return null;
+    public Programador selectProgramadorById(long idCreador) throws Exception {
+
+        manager.getTransaction().begin();
+        Programador p = manager.find(Programador.class,idCreador);
+        manager.close();
+
+        if(p==null){
+            throw new Exception("programci bulunamadı");
+        }
+        return  p;
     }
 }

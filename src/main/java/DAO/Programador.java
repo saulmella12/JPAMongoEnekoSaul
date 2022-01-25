@@ -8,6 +8,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name="Programador")
+@NamedQuery(name = "Programador.findAll", query = "Select p from Programador p")
 public class Programador {
     @Id private long id;
     @Column private String nombre;
