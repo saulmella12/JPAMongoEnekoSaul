@@ -1,11 +1,11 @@
 package Repository;
 
-import DAO.Commits;
 import DAO.Repositorio;
 import DTO.RepositorioDTO;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Optional;
 
 public class RepositorioRepository {
 
@@ -55,17 +55,19 @@ public class RepositorioRepository {
      * @param c
      * @return repository
      */
-    public Repositorio delete(Repositorio c) throws Exception {
+    public Optional<Repositorio> delete(Repositorio c) {
         manager.getTransaction().begin();
-        Repositorio r = manager.find(Repositorio.class,c);
+        Optional<Repositorio> r = Optional.of(manager.find(Repositorio.class,c));
         manager.close();
 
-        if(r==null){
-            throw new Exception("depo bulunamadı");
-        }
         return r;
     }
 
-    public RepositorioDTO selectRepositorioById(long idRepositorio) {
+    public Optional<Repositorio> selectRepositorioById(long idRepositorio) {
+        manager.getTransaction().begin();
+        Optional<Repositorio> p = Optional.of(manager.find(Repositorio.class,idRepositorio));
+        manager.close();
+
+        return p;
     }
 }

@@ -3,8 +3,10 @@ package Repository;
 import DAO.Proyecto;
 
 import javax.persistence.*;
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ProyectoRepository {
 
@@ -63,15 +65,12 @@ public class ProyectoRepository {
         return c;
     }
 
-    public Proyecto selectProyectoById(long idProyecto) throws Exception {
+    public Optional<Proyecto> selectProyectoById(long idProyecto) {
 
         manager.getTransaction().begin();
-        Proyecto p = manager.find(Proyecto.class,idProyecto);
+        Optional<Proyecto> p = Optional.of(manager.find(Proyecto.class,idProyecto));
         manager.close();
 
-        if(p==null){
-            throw new Exception("taslak bulunamadı");
-        }
         return p;
     }
 

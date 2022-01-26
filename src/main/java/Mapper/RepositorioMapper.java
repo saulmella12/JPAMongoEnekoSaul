@@ -21,15 +21,16 @@ public class RepositorioMapper {
     private IssueRepository ir = new IssueRepository();
     private CommitRepository cr = new CommitRepository();
 
-    public RepositorioDTO toDTO(Repositorio r) throws Exception {
+    public RepositorioDTO toDTO(Repositorio r) {
         RepositorioDTO dto = new RepositorioDTO();
 
         dto.setId(r.getId());
         dto.setNombre(r.getNombre());
-        dto.setIdProyecto(pm.toDTO(pr.selectProyectoById(r.getIdProyecto())));
         dto.setFecha(r.getFecha());
         dto.setCommits(r.getCommits().stream().map(this::getCommit).collect(Collectors.toList()));
         dto.setIssues(r.getIssues().stream().map(this::getIssue).collect(Collectors.toList()));
+        dto.setIdProyecto(pm.toDTO(pr.selectProyectoById(r.getIdProyecto()).get()));
+
         return dto;
     }
 
@@ -55,24 +56,16 @@ public class RepositorioMapper {
 
     private CommitDTO getCommit(long id){
 
-        CommitDTO dto = null;
-        try{
-            Commits c = cr.selectCommitById(id);
-            dto =  cm.toDTO(c);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Commits c = cr.selectCommitById(id).get();
+        CommitDTO dto =  cm.toDTO(c);
+
         return dto;
     }
 
     private IssueDTO getIssue(long id){
-        IssueDTO dto = null;
-        try{
-            Issue i = ir.selectIssueById(id);
-            dto =  im.toDTO(i);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        Issue i = ir.selectIssueById(id).get();
+        IssueDTO dto =  im.toDTO(i);
         return dto;
     }
 }

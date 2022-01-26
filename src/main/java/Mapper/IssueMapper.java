@@ -23,8 +23,9 @@ public class IssueMapper {
     private ProyectoMapper pm = new ProyectoMapper();
     private CommitMapper cm = new CommitMapper();
     private ProgramadorMapper ppm = new ProgramadorMapper();
+    private RepositorioMapper rm = new RepositorioMapper();
 
-    public IssueDTO toDTO(Issue c) throws Exception {
+    public IssueDTO toDTO(Issue c) {
         IssueDTO dto = new IssueDTO();
 
         dto.setId(c.getId());
@@ -33,9 +34,9 @@ public class IssueMapper {
         dto.setFecha(c.getFecha());
         dto.setProgramadores(getProgramadorList(c.getProgramadores()));
         dto.setCommits(getCommits(c.getCommits()));
-        dto.setProyecto(pm.toDTO(ppr.selectProyectoById(c.getIdProyecto())));
-        dto.setRepositorio(rr.selectRepositorioById(c.getIdRepositorio()));
         dto.setTerminado(c.isTerminado());
+        dto.setProyecto(pm.toDTO(ppr.selectProyectoById(c.getIdProyecto()).get()));
+        dto.setRepositorio(rm.toDTO(rr.selectRepositorioById(c.getIdRepositorio()).get()));
 
         return dto;
     }
@@ -60,25 +61,13 @@ public class IssueMapper {
 
     private List<ProgramadorDTO> getProgramadorList(List<Long> programadoresId){
         List<ProgramadorDTO> programadores = new ArrayList<>();
-        programadoresId.forEach(v-> {
-            try {
-                programadores.add(ppm.toDTO(pr.selectProgramadorById(v)));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+        programadoresId.forEach(v-> programadores.add(ppm.toDTO(pr.selectProgramadorById(v).get())));
         return programadores;
     }
 
     private List<CommitDTO> getCommits(List<Long> commitsId){
         List<CommitDTO> commits = new ArrayList<>();
-        commitsId.forEach(v-> {
-            try {
-                commits.add(cm.toDTO(cr.selectCommitById(v)));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+        commitsId.forEach(v-> commits.add(cm.toDTO(cr.selectCommitById(v).get())));
         return commits;
     }
 

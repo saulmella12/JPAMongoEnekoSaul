@@ -7,6 +7,7 @@ import DTO.DepartamentoDTO;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Optional;
 
 public class DepartamentoRepository {
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("practica");
@@ -64,15 +65,12 @@ public class DepartamentoRepository {
         return d;
     }
 
-    public Departamento selectDepartamentoById(Long id) throws Exception {
+    public Optional<Departamento> selectDepartamentoById(Long id) {
 
         manager.getTransaction().begin();
-        Departamento d = manager.find(Departamento.class,id);
+        Optional<Departamento> d = Optional.of(manager.find(Departamento.class,id));
         manager.close();
 
-        if(d==null){
-            throw new Exception("departamento bulunamadı");
-        }
         return d;
     }
 }

@@ -8,6 +8,7 @@ import DTO.IssueDTO;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Optional;
 
 public class IssueRepository {
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("practica");
@@ -70,15 +71,11 @@ public class IssueRepository {
         return i;
     }
 
-    public Issue selectIssueById(long idIssue) throws Exception {
-
+    public Optional<Issue> selectIssueById(long idIssue) {
         manager.getTransaction().begin();
-        Issue i = manager.find(Issue.class,idIssue);
+        Optional<Issue> i = Optional.of(manager.find(Issue.class,idIssue));
         manager.close();
 
-        if(i==null){
-            throw new Exception("issue bulunamadı");
-        }
         return i;
     }
 }

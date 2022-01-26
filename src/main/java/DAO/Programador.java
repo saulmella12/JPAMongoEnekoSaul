@@ -17,7 +17,6 @@ public class Programador {
     @Column private String usuario;
     @Column private String passwd;
     @Column private Long idDepartamento;
-    @ElementCollection private List<Long> proyectos;
     @ElementCollection private List<Long> commits;
     @ElementCollection private List<Long> issues;
     @ElementCollection private List<String> tecnologias;

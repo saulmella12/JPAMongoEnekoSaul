@@ -19,15 +19,16 @@ public class DepartamentoMapper {
     private ProyectoMapper pm = new ProyectoMapper();
     private ProgramadorMapper ppm = new ProgramadorMapper();
 
-    public DepartamentoDTO toDTO(Departamento c) throws Exception {
+    public DepartamentoDTO toDTO(Departamento c)  {
         DepartamentoDTO dto = new DepartamentoDTO();
         dto.setId(c.getId());
         dto.setEnCurso(pr.selectSegunEstado(dto.getId(),true).stream().map(this::proyectoDAOtoDTO).collect(Collectors.toList()));
         dto.setNombre(c.getNombre());
-        dto.setJefe(ppm.toDTO(ppr.selectProgramadorById(c.getIdJefe())));
         dto.setPresupuesto(c.getPresupuesto());
         dto.setFinalizados(pr.selectSegunEstado(dto.getId(),false).stream().map(this::proyectoDAOtoDTO).collect(Collectors.toList()));
         dto.setJefes(c.getJefes());
+        dto.setJefe(ppm.toDTO(ppr.selectProgramadorById(c.getIdJefe()).get()));
+
         return dto;
     }
 
@@ -52,12 +53,6 @@ public class DepartamentoMapper {
     }
 
     private ProyectoDTO proyectoDAOtoDTO(Proyecto p){
-        ProyectoDTO dto = null;
-        try {
-            dto =  pm.toDTO(p);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return dto;
+        return pm.toDTO(p);
     }
 }

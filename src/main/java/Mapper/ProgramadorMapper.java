@@ -1,10 +1,7 @@
 package Mapper;
 
-import DAO.Commits;
-import DAO.Issue;
-import DAO.Proyecto;
+import DAO.*;
 import DTO.*;
-import DAO.Programador;
 import Repository.*;
 
 import java.util.List;
@@ -20,8 +17,9 @@ public class ProgramadorMapper {
     private CommitMapper cm = new CommitMapper();
     private IssueMapper im = new IssueMapper();
     private DepartamentoMapper dm = new DepartamentoMapper();
+    private PivoteRepository pivr = new PivoteRepository();
 
-    public ProgramadorDTO toDTO(Programador p) throws Exception {
+    public ProgramadorDTO toDTO(Programador p){
         ProgramadorDTO dto = new ProgramadorDTO();
 
         dto.setId(p.getId());
@@ -30,8 +28,8 @@ public class ProgramadorMapper {
         dto.setSalario(p.getSalario());
         dto.setUsuario(p.getUsuario());
         dto.setPasswd(p.getPasswd());
-        dto.setDepartamento(dm.toDTO(dr.selectDepartamentoById(p.getIdDepartamento())));
-        dto.setProyectos(p.getProyectos().stream().map(this::getProyecto).collect(Collectors.toList()));
+        dto.setDepartamento(dm.toDTO(dr.selectDepartamentoById(p.getIdDepartamento()).get()));
+        dto.setProyectos(getProyectos(p.getId()));
         dto.setCommits(p.getCommits().stream().map(this::getCommit).collect(Collectors.toList()));
         dto.setIssues(p.getIssues().stream().map(this::getIssue).collect(Collectors.toList()));
         dto.setTecnologias(p.getTecnologias());
@@ -49,47 +47,37 @@ public class ProgramadorMapper {
         programador.setPasswd(p.getPasswd());
         programador.setUsuario(p.getUsuario());
         programador.setIdDepartamento(p.getDepartamento().getId());
-        programador.setProyectos(p.getProyectos().stream().map(this::getProyectoId).collect(Collectors.toList()));
         programador.setCommits(p.getCommits().stream().map(this::getCommitId).collect(Collectors.toList()));
         programador.setIssues(p.getIssues().stream().map(this::getIssueId).collect(Collectors.toList()));
         programador.setTecnologias(p.getTecnologias());
 
+        insertIntoPivote(p.getProyectos().stream().map(this::getProyectoId).collect(Collectors.toList()), p.getId());
         return programador;
     }
 
     private ProyectoDTO getProyecto(long id){
+        Proyecto proje = pr.selectProyectoById(id).get();
+        ProyectoDTO dto = pm.toDTO(proje);
 
-        ProyectoDTO dto = null;
-        try{
-            Proyecto proje = pr.selectProyectoById(id);
-            dto = pm.toDTO(proje);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         return dto;
     }
 
     private CommitDTO getCommit(long id) {
 
-        CommitDTO dto = null;
-        try{
-            Commits c = cr.selectCommitById(id);
-            dto = cm.toDTO(c);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Commits c = cr.selectCommitById(id).get();
+        CommitDTO dto = cm.toDTO(c);
+
         return dto;
     }
 
     private IssueDTO getIssue(long id) {
-        IssueDTO dto = null;
-        try{
-            Issue sorun = ir.selectIssueById(id);
-            dto = im.toDTO(sorun);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Issue sorun = ir.selectIssueById(id).get();
+        IssueDTO dto = im.toDTO(sorun);
         return dto;
+    }
+
+    private List<ProyectoDTO> getProyectos(long id){
+        return pivr.getProyectoFromProgramador(id).stream().map(this::getProyecto).collect(Collectors.toList());
     }
 
     private long getProyectoId(ProyectoDTO p){
@@ -100,5 +88,9 @@ public class ProgramadorMapper {
 
     private long getIssueId(IssueDTO i){
         return i.getId();
+    }
+
+    private void insertIntoPivote(List<Long> proyectos,long programador){
+        proyectos.forEach(v->pivr.insert(new PivotePP(1L,programador,v)));
     }
 }

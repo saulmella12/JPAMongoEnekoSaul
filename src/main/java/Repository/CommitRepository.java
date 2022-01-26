@@ -6,6 +6,7 @@ import DTO.RepositorioDTO;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Optional;
 
 public class CommitRepository {
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("practica");
@@ -63,15 +64,12 @@ public class CommitRepository {
             return c;
     }
 
-    public Commits selectCommitById(Long id) throws Exception {
+    public Optional<Commits> selectCommitById(Long id) {
 
         manager.getTransaction().begin();
-        Commits c = manager.find(Commits.class,id);
+        Optional<Commits> c = Optional.of(manager.find(Commits.class,id));
         manager.close();
-
-        if(c==null){
-            throw new Exception("commit bulunamadı");
-        }
+        
         return c;
     }
 }

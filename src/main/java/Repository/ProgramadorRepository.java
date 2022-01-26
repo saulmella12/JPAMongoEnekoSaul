@@ -6,6 +6,7 @@ import DTO.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Optional;
 
 public class ProgramadorRepository {
 
@@ -65,15 +66,12 @@ public class ProgramadorRepository {
         return p;
     }
 
-    public Programador selectProgramadorById(long idCreador) throws Exception {
+    public Optional<Programador> selectProgramadorById(long idCreador){
 
         manager.getTransaction().begin();
-        Programador p = manager.find(Programador.class,idCreador);
+        Optional<Programador> p = Optional.of(manager.find(Programador.class,idCreador));
         manager.close();
 
-        if(p==null){
-            throw new Exception("programci bulunamadı");
-        }
-        return  p;
+        return p;
     }
 }

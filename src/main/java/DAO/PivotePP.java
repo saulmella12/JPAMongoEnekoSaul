@@ -1,17 +1,18 @@
 package DAO;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
+import javax.persistence.*;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @NamedQuery(name = "PivotePP.findAll", query = "Select p from PivotePP p")
 public class PivotePP {
-    @Id private Long id;
+    @GeneratedValue @Id private Long id;
     @Column private long idProgramador;
     @Column private long idProyecto;
 }
