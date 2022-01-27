@@ -1,5 +1,6 @@
 package service;
 
+import DAO.Departamento;
 import DTO.DepartamentoDTO;
 import Mapper.DepartamentoMapper;
 import Repository.DepartamentoRepository;
@@ -17,5 +18,20 @@ public class DepartamentoService {
 
     public DepartamentoDTO getDepartamentoById(long id){
         return (DepartamentoDTO) repository.selectDepartamentoById(id).stream().map(v->mapper.toDTO(v));
+    }
+
+    public DepartamentoDTO postDepartamento(DepartamentoDTO departamentoDTO){
+        Departamento d = repository.insert(mapper.toDAO(departamentoDTO));
+        return mapper.toDTO(d);
+    }
+
+    public DepartamentoDTO updateDepartamento(DepartamentoDTO departamentoDTO){
+        Departamento d = repository.update(mapper.toDAO(departamentoDTO));
+        return mapper.toDTO(d);
+    }
+
+    public DepartamentoDTO deleteDepartamento(DepartamentoDTO departamentoDTO){
+        Departamento d = repository.delete(mapper.toDAO(departamentoDTO));
+        return mapper.toDTO(d);
     }
 }

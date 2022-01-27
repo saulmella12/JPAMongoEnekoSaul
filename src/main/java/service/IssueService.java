@@ -1,5 +1,6 @@
 package service;
 
+import DAO.Issue;
 import DTO.IssueDTO;
 import Mapper.IssueMapper;
 import Repository.IssueRepository;
@@ -18,4 +19,21 @@ public class IssueService {
     public IssueDTO getIssueById(long id){
         return (IssueDTO) repository.selectIssueById(id).stream().map(v->mapper.toDTO(v));
     }
+
+    public IssueDTO postIssue(IssueDTO issueDTO){
+        Issue i = repository.insert(mapper.toDAO(issueDTO));
+        return mapper.toDTO(i);
+    }
+
+    public IssueDTO updateIssue(IssueDTO issueDTO){
+        Issue i = repository.update(mapper.toDAO(issueDTO));
+        return mapper.toDTO(i);
+    }
+
+    public IssueDTO deleteIssue(IssueDTO issueDTO){
+        Issue i = repository.delete(mapper.toDAO(issueDTO));
+        return mapper.toDTO(i);
+    }
+
+
 }

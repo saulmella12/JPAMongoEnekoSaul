@@ -91,6 +91,6 @@ public class ProgramadorMapper {
     }
 
     private void insertIntoPivote(List<Long> proyectos,long programador){
-        proyectos.forEach(v->pivr.insert(new PivotePP(1L,programador,v)));
+        proyectos.forEach(v->pivr.insert(new PivotePP(programador,v)));
     }
 }

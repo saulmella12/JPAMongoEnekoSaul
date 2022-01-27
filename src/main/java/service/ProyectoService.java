@@ -1,5 +1,6 @@
 package service;
 
+import DAO.Proyecto;
 import DTO.ProyectoDTO;
 import Mapper.ProyectoMapper;
 import Repository.ProyectoRepository;
@@ -18,4 +19,20 @@ public class ProyectoService {
     public ProyectoDTO getProyectoById(long id){
         return (ProyectoDTO) repository.selectProyectoById(id).stream().map(v->mapper.toDTO(v));
     }
+
+    public ProyectoDTO postProyecto(ProyectoDTO proyectoDTO){
+        Proyecto p = repository.insert(mapper.toDAO(proyectoDTO));
+        return mapper.toDTO(p);
+    }
+
+    public ProyectoDTO updateProyecto(ProyectoDTO proyectoDTO){
+        Proyecto p = repository.update(mapper.toDAO(proyectoDTO));
+        return mapper.toDTO(p);
+    }
+
+    public ProyectoDTO deleteProyecto(ProyectoDTO proyectoDTO){
+        Proyecto p = repository.delete(mapper.toDAO(proyectoDTO));
+        return mapper.toDTO(p);
+    }
+
 }

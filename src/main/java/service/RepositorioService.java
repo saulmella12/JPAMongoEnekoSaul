@@ -32,7 +32,7 @@ public class RepositorioService {
     }
 
     public RepositorioDTO deleteRepositorio(RepositorioDTO repositorioDTO){
-        Repositorio c = repository.delete(mapper.toDAO(repositorioDTO)).get();
+        Repositorio c = repository.delete(mapper.toDAO(repositorioDTO));
         return mapper.toDTO(c);
     }
 }

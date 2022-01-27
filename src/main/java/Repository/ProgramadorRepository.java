@@ -1,8 +1,6 @@
 package Repository;
 
-import DAO.Commits;
 import DAO.Programador;
-import DTO.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,7 +10,7 @@ public class ProgramadorRepository {
 
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("practica");
     EntityManager manager = entityManagerFactory.createEntityManager();
-    EntityTransaction transaction = manager.getTransaction();
+    //EntityTransaction transaction = manager.getTransaction();
 
     /**
      * Creation of the method that search all the programmers of the database

@@ -1,5 +1,6 @@
 package Repository;
 
+import DAO.PivotePP;
 import DAO.Repositorio;
 import DTO.RepositorioDTO;
 
@@ -55,12 +56,13 @@ public class RepositorioRepository {
      * @param c
      * @return repository
      */
-    public Optional<Repositorio> delete(Repositorio c) {
+    public Repositorio delete(Repositorio c) {
         manager.getTransaction().begin();
-        Optional<Repositorio> r = Optional.of(manager.find(Repositorio.class,c));
+        c = manager.merge(c);
+        manager.remove(c);
         manager.close();
 
-        return r;
+        return c;
     }
 
     public Optional<Repositorio> selectRepositorioById(long idRepositorio) {

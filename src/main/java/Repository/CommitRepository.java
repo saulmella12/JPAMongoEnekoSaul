@@ -44,7 +44,8 @@ public class CommitRepository {
      */
     public Commits update(Commits c){
             manager.getTransaction().begin();
-            manager.merge(c);
+            Commits t = manager.merge(c);
+            t = c;
             manager.getTransaction().commit();
             System.out.println("Elemento Actualizado: "+c.toString());
             return c;
