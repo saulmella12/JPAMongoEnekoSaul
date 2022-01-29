@@ -39,14 +39,14 @@ public class CommitRepositoryTest {
         Commits ans = cr.update(commitPrueba);
         Assertions.assertAll(
                 () -> assertTrue(ans!=null),
-                () -> assertEquals(commitPrueba.getTexto(),ans.getTexto())
+                () -> assertEquals(commitPrueba,ans)
         );
     }
 
     @Test
     @Order(4)
     public void selectById(){
-        Commits ans = cr.selectCommitById(commitPrueba.getId()).get();
+        Commits ans = cr.selectCommitById(commitPrueba.get_id()).get();
         Assertions.assertEquals(commitPrueba,ans);
     }
 

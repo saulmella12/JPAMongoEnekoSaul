@@ -22,14 +22,14 @@ public class ProgramadorMapper {
     public ProgramadorDTO toDTO(Programador p){
         ProgramadorDTO dto = new ProgramadorDTO();
 
-        dto.setId(p.getId());
+        dto.setId(p.get_id());
         dto.setNombre(p.getNombre());
         dto.setAlta(p.getAlta());
         dto.setSalario(p.getSalario());
         dto.setUsuario(p.getUsuario());
         dto.setPasswd(p.getPasswd());
         dto.setDepartamento(dm.toDTO(dr.selectDepartamentoById(p.getIdDepartamento()).get()));
-        dto.setProyectos(getProyectos(p.getId()));
+        dto.setProyectos(getProyectos(p.get_id()));
         dto.setCommits(p.getCommits().stream().map(this::getCommit).collect(Collectors.toList()));
         dto.setIssues(p.getIssues().stream().map(this::getIssue).collect(Collectors.toList()));
         dto.setTecnologias(p.getTecnologias());
@@ -40,7 +40,7 @@ public class ProgramadorMapper {
     public Programador toDAO(ProgramadorDTO p){
         Programador programador = new Programador();
 
-        programador.setId(p.getId());
+        programador.set_id(p.getId());
         programador.setNombre(p.getNombre());
         programador.setAlta(p.getAlta());
         programador.setSalario(p.getSalario());

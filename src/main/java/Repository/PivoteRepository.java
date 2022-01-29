@@ -1,43 +1,52 @@
 package Repository;
 
 import DAO.PivotePP;
+import controller.Controller;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class PivoteRepository {
 
-    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("practica");
-    EntityManager manager = entityManagerFactory.createEntityManager();
-    EntityTransaction transaction = manager.getTransaction();
 
     public List<PivotePP> getAll(){
-        manager.getTransaction().begin();
-        TypedQuery<PivotePP> query = manager.createNamedQuery("PivotePP.findAll", PivotePP.class);
+        Controller controller = Controller.getInstance();
+        controller.open();
+        TypedQuery<PivotePP> query = controller.getManager().createNamedQuery("PivotePP.findAll", PivotePP.class);
         List<PivotePP> lista = query.getResultList();
-        manager.close();
+        controller.close();
         return lista;
     }
     
     public PivotePP insert(PivotePP p){
-        manager.getTransaction().begin();
-        manager.persist(p);
-        manager.getTransaction().commit();
+        Controller controller = Controller.getInstance();
+        controller.open();
+        controller.getTransaction().begin();
+        controller.getManager().persist(p);
+        controller.getTransaction().commit();
+        controller.close();
         return p;
     }
 
     public PivotePP update(PivotePP p){
-        manager.getTransaction().begin();
-        manager.merge(p);
-        manager.getTransaction().commit();
+        Controller controller = Controller.getInstance();
+        controller.open();
+        controller.getTransaction().begin();
+        controller.getManager().merge(p);
+        controller.getTransaction().commit();
+        controller.close();
         return p;
     }
 
     public PivotePP delete(PivotePP p){
-        manager.getTransaction().begin();
-        p = manager.find(PivotePP.class, p.getId());
-        manager.remove(p);
-        manager.getTransaction().commit();
+        Controller controller = Controller.getInstance();
+        controller.open();
+        controller.getTransaction().begin();
+        p = controller.getManager().find(PivotePP.class, p.get_id());
+        controller.getManager().remove(p);
+        controller.getTransaction().commit();
+        controller.close();
         return p;
     }
 

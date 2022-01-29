@@ -24,7 +24,7 @@ public class RepositorioMapper {
     public RepositorioDTO toDTO(Repositorio r) {
         RepositorioDTO dto = new RepositorioDTO();
 
-        dto.setId(r.getId());
+        dto.setId(r.get_id());
         dto.setNombre(r.getNombre());
         dto.setFecha(r.getFecha());
         dto.setCommits(r.getCommits().stream().map(this::getCommit).collect(Collectors.toList()));
@@ -37,7 +37,7 @@ public class RepositorioMapper {
     public Repositorio toDAO(RepositorioDTO r){
         Repositorio repositorio = new Repositorio();
 
-        repositorio.setId(r.getId());
+        repositorio.set_id(r.getId());
         repositorio.setNombre(r.getNombre());
         repositorio.setIdProyecto(r.getIdProyecto().getId());
         repositorio.setFecha(r.getFecha());

@@ -58,7 +58,7 @@ public class DepartamentoRepository {
      */
     public Departamento delete(Departamento d){
         manager.getTransaction().begin();
-        d = manager.find(Departamento.class, d.getId());
+        d = manager.find(Departamento.class, d.get_id());
         manager.remove(d);
         manager.getTransaction().commit();
         System.out.println("Elemento Borrado: "+ d.toString());

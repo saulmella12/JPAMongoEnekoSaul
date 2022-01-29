@@ -19,7 +19,7 @@ public class CommitMapper {
 
     public CommitDTO toDTO(Commits c) {
         CommitDTO dto = new CommitDTO();
-        dto.setId(c.getId());
+        dto.setId(c.get_id());
         dto.setTitulo(c.getTitulo());
         dto.setTexto(c.getTexto());
         dto.setFecha(c.getFecha());
@@ -34,7 +34,7 @@ public class CommitMapper {
 
     public Commits toDAO(CommitDTO c){
         Commits commit = new Commits();
-        commit.setId(c.getId());
+        commit.set_id(c.getId());
         commit.setTitulo(c.getTitulo());
         commit.setTexto(c.getTexto());
         commit.setFecha(c.getFecha());

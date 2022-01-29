@@ -28,7 +28,7 @@ public class IssueMapper {
     public IssueDTO toDTO(Issue c) {
         IssueDTO dto = new IssueDTO();
 
-        dto.setId(c.getId());
+        dto.setId(c.get_id());
         dto.setTitulo(c.getTitulo());
         dto.setTexto(c.getTexto());
         dto.setFecha(c.getFecha());
@@ -46,7 +46,7 @@ public class IssueMapper {
         List<Long> programadores = c.getProgramadores().stream().map(v->getId(v,"p")).collect(Collectors.toList());
         List<Long> commits = c.getCommits().stream().map(v->getId(v,"c")).collect(Collectors.toList());
 
-        issue.setId(c.getId());
+        issue.set_id(c.getId());
         issue.setTitulo(c.getTitulo());
         issue.setTexto(c.getTexto());
         issue.setFecha(c.getFecha());

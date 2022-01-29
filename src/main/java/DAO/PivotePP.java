@@ -3,6 +3,7 @@ package DAO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.bson.types.ObjectId;
 
 import javax.persistence.*;
 
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @NamedQuery(name = "PivotePP.findAll", query = "Select p from PivotePP p")
 public class PivotePP {
-    @GeneratedValue @Id private Long id;
+    @Id private long _id = ObjectId.getCurrentCounter();
     @Column private long idProgramador;
     @Column private long idProyecto;
 
