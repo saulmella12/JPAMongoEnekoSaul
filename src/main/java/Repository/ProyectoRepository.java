@@ -1,6 +1,7 @@
 package Repository;
 
 import DAO.Proyecto;
+import controller.Controller;
 
 import javax.persistence.*;
 import javax.swing.text.html.Option;
@@ -10,19 +11,18 @@ import java.util.Optional;
 
 public class ProyectoRepository {
 
-    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("practica");
-    EntityManager manager = entityManagerFactory.createEntityManager();
-    EntityTransaction transaction = manager.getTransaction();
+    Controller controller = Controller.getInstance();
 
     /**
      * Creation of the method that search all the projects of the database
      * @return projects and print the projects list
      */
     public List<Proyecto> selectAll() {
-        manager.getTransaction().begin();
-        TypedQuery<Proyecto> query = manager.createNamedQuery("Proyecto.findAll", Proyecto.class);
+        controller.open();
+        controller.getTransaction().begin();
+        TypedQuery<Proyecto> query = controller.getManager().createNamedQuery("Proyecto.findAll", Proyecto.class);
         List<Proyecto> lista = query.getResultList();
-        manager.close();
+        controller.close();
         return lista;
     }
 
@@ -32,9 +32,10 @@ public class ProyectoRepository {
      * @return project
      */
     public Proyecto insert(Proyecto c) {
-        manager.getTransaction().begin();
-        manager.persist(c);
-        manager.getTransaction().commit();
+        controller.open();
+        controller.getTransaction().begin();
+        controller.getManager().persist(c);
+        controller.getTransaction().commit();
         return c;
     }
 
@@ -44,9 +45,10 @@ public class ProyectoRepository {
      * @return project
      */
     public Proyecto update(Proyecto c){
-        manager.getTransaction().begin();
-        manager.merge(c);
-        manager.getTransaction().commit();
+        controller.open();
+        controller.getTransaction().begin();
+        controller.getManager().merge(c);
+        controller.getTransaction().commit();
         System.out.println("Elemento Actualizado: "+c.toString());
         return c;
     }
@@ -57,19 +59,20 @@ public class ProyectoRepository {
      * @return project
      */
     public Proyecto delete(Proyecto c){
-        manager.getTransaction().begin();
-        c = manager.find(Proyecto.class, c.getId());
-        manager.remove(c);
-        manager.getTransaction().commit();
+        controller.open();
+        controller.getTransaction().begin();
+        c = controller.getManager().find(Proyecto.class, c.get_id());
+        controller.getManager().remove(c);
+        controller.getTransaction().commit();
         System.out.println("Elemento Borrado: "+ c.toString());
         return c;
     }
 
     public Optional<Proyecto> selectProyectoById(long idProyecto) {
-
-        manager.getTransaction().begin();
-        Optional<Proyecto> p = Optional.of(manager.find(Proyecto.class,idProyecto));
-        manager.close();
+        controller.open();
+        controller.getTransaction().begin();
+        Optional<Proyecto> p = Optional.of(controller.getManager().find(Proyecto.class,idProyecto));
+        controller.close();
 
         return p;
     }

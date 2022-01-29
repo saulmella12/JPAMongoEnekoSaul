@@ -21,7 +21,7 @@ public class DepartamentoMapper {
 
     public DepartamentoDTO toDTO(Departamento c)  {
         DepartamentoDTO dto = new DepartamentoDTO();
-        dto.setId(c.getId());
+        dto.setId(c.get_id());
         dto.setEnCurso(pr.selectSegunEstado(dto.getId(),true).stream().map(this::proyectoDAOtoDTO).collect(Collectors.toList()));
         dto.setNombre(c.getNombre());
         dto.setPresupuesto(c.getPresupuesto());
@@ -37,7 +37,7 @@ public class DepartamentoMapper {
         List<Long> enCurso = c.getEnCurso().stream().map(this::getIds).collect(Collectors.toList());
         List<Long> finalizados = c.getFinalizados().stream().map(this::getIds).collect(Collectors.toList());
 
-        departamento.setId(c.getId());
+        departamento.set_id(c.getId());
         departamento.setEnCurso(enCurso);
         departamento.setNombre(c.getNombre());
         departamento.setIdJefe(c.getJefe().getId());

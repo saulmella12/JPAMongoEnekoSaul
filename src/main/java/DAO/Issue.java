@@ -2,6 +2,7 @@ package DAO;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.bson.types.ObjectId;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 @Table(name="Issue")
 @NamedQuery(name = "Issue.findAll", query = "Select i from Issue i")
 public class Issue {
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE) private long id;
+    @Id private long _id= ObjectId.getCurrentCounter();
     @Column private String titulo;
     @Column private String texto;
     @Column private String fecha;

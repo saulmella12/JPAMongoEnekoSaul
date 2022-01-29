@@ -2,6 +2,7 @@ package DAO;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.bson.types.ObjectId;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 @Data
 public class Departamento {
 
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE) private long id;
+    @Id private long _id = ObjectId.getCurrentCounter();
     @ElementCollection private List<Long> enCurso;
     @Column private String nombre;
     @Column private long idJefe;

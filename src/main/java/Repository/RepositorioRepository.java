@@ -1,28 +1,23 @@
 package Repository;
 
-import DAO.PivotePP;
 import DAO.Repositorio;
-import DTO.RepositorioDTO;
-
+import controller.Controller;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Optional;
 
 public class RepositorioRepository {
 
-    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("practica");
-    EntityManager manager = entityManagerFactory.createEntityManager();
-    EntityTransaction transaction = manager.getTransaction();
-
     /**
      * Creation of the method that search all the repositories of the database
      * @return repositories and print the repository list
      */
     public List<Repositorio> selectAll() {
-        manager.getTransaction().begin();
-        TypedQuery<Repositorio> query = manager.createNamedQuery("Repositorio.findAll", Repositorio.class);
+        Controller controller = Controller.getInstance();
+        controller.open();
+        TypedQuery<Repositorio> query = controller.getManager().createNamedQuery("Repositorio.findAll", Repositorio.class);
         List<Repositorio> lista = query.getResultList();
-        manager.close();
+        controller.close();
         return lista;
     }
 
@@ -32,9 +27,11 @@ public class RepositorioRepository {
      * @return repository
      */
     public Repositorio insert(Repositorio c) {
-        manager.getTransaction().begin();
-        manager.persist(c);
-        manager.getTransaction().commit();
+        Controller controller = Controller.getInstance();
+        controller.getTransaction().begin();
+        controller.getManager().persist(c);
+        controller.getTransaction().commit();
+        controller.close();
         return c;
     }
 
@@ -44,9 +41,12 @@ public class RepositorioRepository {
      * @return repository
      */
     public Repositorio update(Repositorio c){
-        manager.getTransaction().begin();
-        manager.merge(c);
-        manager.getTransaction().commit();
+        Controller controller = Controller.getInstance();
+        controller.open();
+        controller.getTransaction().begin();
+        controller.getManager().merge(c);
+        controller.getTransaction().commit();
+        controller.close();
         System.out.println("Elemento Actualizado: "+c.toString());
         return c;
     }
@@ -57,19 +57,21 @@ public class RepositorioRepository {
      * @return repository
      */
     public Repositorio delete(Repositorio c) {
-        manager.getTransaction().begin();
-        c = manager.merge(c);
-        manager.remove(c);
-        manager.close();
-
+        Controller controller = Controller.getInstance();
+        controller.open();
+        controller.getManager().getTransaction().begin();
+        c = controller.getManager().merge(c);
+        controller.getManager().remove(c);
+        controller.close();
         return c;
     }
 
     public Optional<Repositorio> selectRepositorioById(long idRepositorio) {
-        manager.getTransaction().begin();
-        Optional<Repositorio> p = Optional.of(manager.find(Repositorio.class,idRepositorio));
-        manager.close();
-
+        Controller controller = Controller.getInstance();
+        controller.open();
+        controller.getTransaction().begin();
+        Optional<Repositorio> p = Optional.of(controller.getManager().find(Repositorio.class,idRepositorio));
+        controller.close();
         return p;
     }
 }

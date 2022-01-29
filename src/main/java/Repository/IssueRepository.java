@@ -1,35 +1,34 @@
 package Repository;
 
-
-
-import DAO.Commits;
 import DAO.Issue;
-import DTO.IssueDTO;
+import controller.Controller;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Optional;
 
 public class IssueRepository {
-    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("practica");
-    EntityManager manager = entityManagerFactory.createEntityManager();
-    EntityTransaction transaction = manager.getTransaction();
+    Controller controller = Controller.getInstance();
 
     /**
      * Creation of the method that search all the issues of the database
      * @return issues and print the issue list
      */
     public List<Issue> selectAll() {
-        manager.getTransaction().begin();
-        TypedQuery<Issue> query = manager.createNamedQuery("Issue.findAll", Issue.class);
+        controller.open();
+        controller.getTransaction().begin();
+        TypedQuery<Issue> query = controller.getManager().createNamedQuery("Issue.findAll", Issue.class);
         List<Issue> lista = query.getResultList();
-        manager.close();
+        controller.close();
         return lista;
     }
 
     public Issue selectById(long id){
+        controller.open();
         System.out.println("issue que consuerda con la id "+id);
-        return (Issue) manager.createQuery("from Issue where id="+id);
+        Issue ans = (Issue) controller.getManager().createQuery("from Issue where id="+id);
+        controller.close();
+        return ans;
+
     }
 
     /**
@@ -38,9 +37,11 @@ public class IssueRepository {
      * @return issue
      */
     public Issue insert(Issue i) {
-        manager.getTransaction().begin();
-        manager.persist(i);
-        manager.getTransaction().commit();
+        controller.open();
+        controller.getManager().getTransaction().begin();
+        controller.getManager().persist(i);
+        controller.getTransaction().commit();
+        controller.close();
         return i;
     }
 
@@ -50,10 +51,12 @@ public class IssueRepository {
      * @return issue
      */
     public Issue update(Issue i){
-        manager.getTransaction().begin();
-        manager.merge(i);
-        manager.getTransaction().commit();
+        controller.open();
+        controller.getTransaction().begin();
+        controller.getManager().merge(i);
+        controller.getTransaction().commit();
         System.out.println("Elemento Actualizado: "+i.toString());
+        controller.close();
         return i;
     }
 
@@ -63,19 +66,12 @@ public class IssueRepository {
      * @return issue
      */
     public Issue delete(Issue i){
-        manager.getTransaction().begin();
-        i = manager.find(Issue.class, i.getId());
-        manager.remove(i);
-        manager.getTransaction().commit();
+        controller.open();
+        controller.getTransaction().begin();
+        i = controller.getManager().find(Issue.class, i.get_id());
+        controller.getManager().remove(i);
+        controller.getTransaction().commit();
         System.out.println("Elemento Borrado: "+ i.toString());
-        return i;
-    }
-
-    public Optional<Issue> selectIssueById(long idIssue) {
-        manager.getTransaction().begin();
-        Optional<Issue> i = Optional.of(manager.find(Issue.class,idIssue));
-        manager.close();
-
         return i;
     }
 }

@@ -20,7 +20,7 @@ public class ProyectoMapper {
     public ProyectoDTO toDTO(Proyecto c)  {
 
         ProyectoDTO dto = new ProyectoDTO();
-        dto.setId(c.getId());
+        dto.setId(c.get_id());
         dto.setTermiando(c.isTermiando());
         dto.setJefe(pm.toDTO(pr.selectProgramadorById(c.getIdJefe()).get()));
         dto.setNombre(c.getNombre());
@@ -28,14 +28,14 @@ public class ProyectoMapper {
         dto.setFechaInicio(c.getFechaInicio());
         dto.setFechaFin(c.getFechaFin());
         dto.setTecnologias(c.getTecnologias());
-        dto.setProgramadores(getProgramadores(c.getId()));
+        dto.setProgramadores(getProgramadores(c.get_id()));
 
         return dto;
     }
 
     public Proyecto toDAO(ProyectoDTO c){
         Proyecto proyecto = new Proyecto();
-        proyecto.setId(c.getId());
+        proyecto.set_id(c.getId());
         proyecto.setTermiando(c.isTermiando());
         proyecto.setIdJefe(c.getJefe().getId());
         proyecto.setNombre(c.getNombre());
