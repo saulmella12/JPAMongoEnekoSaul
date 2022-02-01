@@ -1,13 +1,24 @@
 conn = new Mongo();
-// Nos vamos a la base de datos test,
-// si no lo haría por defecto en la BD definida en el docker-compose.yml MONGO_INITDB_DATABASE
 db = conn.getDB("test");
-// Borramos todas las colecciones
-// db.collection.drop();
-
-// Y en la colección prueba creamos un índice e insertamos
 db.prueba.createIndex({ "address.zip": 1 }, { unique: false });
 
-db.Commits.insert({ "id":1,"titulo":"tituloPrueba","texto":"textoPrueba","fecha":"2222-22-22","idRepositorio":1,"idIssue":1,"idProyecto":1,"idCreador":1});
-db.Departamentos.insert({ "id":1, "enCurso":(1),"nombre":"prueba",});
-db.Issue.insert({"id":1,"titulo":"tituloPrueba","texto":"textoPrueba","fecha":"2222-22-22","programadores":[1],"commits":[1],"idProyecto":1,"idRepositorio":1,"terminado":true});
+db.Commits.insert({ "id":1,"titulo":"superPrueba","texto":"rtextaco","fecha":"2222-22-22","idRepositorio":1,"idIssue":1,"idProyecto":1,"idCreador":1});
+db.Commits.insert({ "id":2,"titulo":"tituloPrueba","texto":"textoPrueba","fecha":"2222-22-22","idRepositorio":1,"idIssue":2,"idProyecto":1,"idCreador":2});
+db.Commits.insert({ "id":3,"titulo":"otroTitulo","texto":"supertecto","fecha":"2222-22-22","idRepositorio":2,"idIssue":1,"idProyecto":1,"idCreador":3});
+db.Commits.insert({ "id":4,"titulo":"otroTitulo","texto":"supertecto","fecha":"2222-22-22","idRepositorio":3,"idIssue":3,"idProyecto":1,"idCreador":3});
+db.Departamentos.insert({ "id":1, "enCurso":[1],"nombre":"prueba1","idJefe":2,"presupuesto":3345464,"finalizados":[1],"jefes":[1]});
+db.Departamentos.insert({ "id":2, "enCurso":[2],"nombre":"prueba2","idJefe":2,"presupuesto":42164,"finalizados":[2],"jefes":[2]});
+db.Departamentos.insert({ "id":3, "enCurso":[3],"nombre":"prueba3","idJefe":2,"presupuesto":534664,"finalizados":[3],"jefes":[3]});
+db.Issue.insert({"id":1,"titulo":"tituloPrueba","texto":"textoPrueba","fecha":"2222-22-22","programadores":[1],"commits":[1,3],"idProyecto":1,"idRepositorio":1,"terminado":true});
+db.Issue.insert({"id":2,"titulo":"tituloPrueba","texto":"textoPrueba","fecha":"2222-22-22","programadores":[2],"commits":[2],"idProyecto":1,"idRepositorio":2,"terminado":false});
+db.Issue.insert({"id":3,"titulo":"tituloPrueba","texto":"textoPrueba","fecha":"2222-22-22","programadores":[3],"commits":[4],"idProyecto":1,"idRepositorio":3,"terminado":false});
+db.Programador.insert({"id":1,"nombre":"nombrePrueba","alta": "2222-22-22","salario": 2000.0,"usuario":"usuarioPrueba","passwd":"contraseñaPrueba","idDepartamento":1,"commits":[1],"issues":[1],"tecnologias":["java","python"]});
+db.Programador.insert({"id":2,"nombre":"nombrePrueba2","alta": "2222-22-33","salario": 3000.0,"usuario":"usuarioPrueba1","passwd":"contraseñaPrueba2","idDepartamento":2,"commits":[2],"issues":[2],"tecnologias":["java","python"]});
+db.Programador.insert({"id":3,"nombre":"nombrePrueba3","alta": "2222-22-44","salario": 4000.0,"usuario":"usuarioPrueba2","passwd":"contraseñaPrueba3","idDepartamento":3,"commits":[3],"issues":[3],"tecnologias":["java","python"]});
+db.PivotePP.insert({"idProgramador":1,"idProyecto":1});
+db.Proyecto.insert({"id":1,"terminado":true,"idJefe":2,"nombre":"prueba","presupuesto":7645,"fechaInicio":"2222-22-22","fechaFin":"2222-22-22","tecnologias":["java","javascript"],"departamento":1});
+db.Proyecto.insert({"id":2,"terminado":false,"idJefe":2,"nombre":"prueba2","presupuesto":3763,"fechaInicio":"2222-22-33","fechaFin":"2222-22-33","tecnologias":["java","javascript"],"departamento":2});
+db.Proyecto.insert({"id":3,"terminado":true,"idJefe":2,"nombre":"prueba3","presupuesto":12343,"fechaInicio":"2222-22-44","fechaFin":"2222-22-44","tecnologias":["java","javascript"],"departamento":3});
+db.Repositorio.insert({"id":1,"nombre":"nombrePrueba","idProyecto":1,"fecha":"2222-22-22","commits":[1,2],"issues":[1]});
+db.Repositorio.insert({"id":2,"nombre":"nombrePrueba","idProyecto":2,"fecha":"2222-22-22","commits":[3],"issues":[2]});
+db.Repositorio.insert({"id":3,"nombre":"nombrePrueba","idProyecto":3,"fecha":"2222-22-22","commits":[4],"issues":[3]});
