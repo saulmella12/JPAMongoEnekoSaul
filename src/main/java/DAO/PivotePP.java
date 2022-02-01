@@ -12,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @NamedQuery(name = "PivotePP.findAll", query = "Select p from PivotePP p")
 public class PivotePP {
-    @Id private long _id = ObjectId.getCurrentCounter();
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private ObjectId _id;
     @Column private long idProgramador;
     @Column private long idProyecto;
 

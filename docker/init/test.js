@@ -8,5 +8,6 @@ db = conn.getDB("test");
 // Y en la colección prueba creamos un índice e insertamos
 db.prueba.createIndex({ "address.zip": 1 }, { unique: false });
 
-db.prueba.insert({ "address": { "city": "Paris", "zip": "123" }, "name": "Mike", "phone": "1234" });
-db.prueba.insert({ "address": { "city": "Marsel", "zip": "321" }, "name": "Helga", "phone": "4321" });
+db.Commits.insert({ "id":1,"titulo":"tituloPrueba","texto":"textoPrueba","fecha":"2222-22-22","idRepositorio":1,"idIssue":1,"idProyecto":1,"idCreador":1});
+db.Departamentos.insert({ "id":1, "enCurso":(1),"nombre":"prueba",});
+db.Issue.insert({"id":1,"titulo":"tituloPrueba","texto":"textoPrueba","fecha":"2222-22-22","programadores":[1],"commits":[1],"idProyecto":1,"idRepositorio":1,"terminado":true});

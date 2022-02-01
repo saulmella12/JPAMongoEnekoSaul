@@ -13,14 +13,16 @@ import java.util.List;
 @Table(name="Repositorio")
 @NamedQuery(name = "Repositorio.findAll", query = "Select r from Repositorio r")
 public class Repositorio {
-    @Id private long _id = ObjectId.getCurrentCounter();
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private ObjectId _id;
+    @Column private long id;
     @Column private String nombre;
     @Column private long idProyecto;
     @Column private String fecha;
     @ElementCollection private List<Long> commits;
     @ElementCollection private List<Long> issues;
 
-    public Repositorio(String nombre, long idProyecto, String fecha, List<Long> commits, List<Long> issues) {
+    public Repositorio(long id, String nombre, long idProyecto, String fecha, List<Long> commits, List<Long> issues) {
+        this.id = id;
         this.nombre = nombre;
         this.idProyecto = idProyecto;
         this.fecha = fecha;

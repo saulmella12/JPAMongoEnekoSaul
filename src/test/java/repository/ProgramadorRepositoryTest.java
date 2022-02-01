@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("CommitRepository tests")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ProgramadorRepositoryTest {
-    private Programador p = new Programador("prueba","2222-22-22",23,"prueba","1234",1L, List.of(1L,2L),List.of(1L,2L),List.of("java","python"));
+    private Programador p = new Programador(1L,"prueba","2222-22-22",23,"prueba","1234",1L, List.of(1L,2L),List.of(1L,2L),List.of("java","python"));
     private ProgramadorRepository pr = new ProgramadorRepository();
 
     @Test
