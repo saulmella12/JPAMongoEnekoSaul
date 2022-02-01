@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CommitRepositoryTest {
 
-    private Commits commitPrueba = new Commits("tituloPrueba","textoPrueba","fechaPrueba",1L,1L,1L,1L);
+    private Commits commitPrueba = new Commits(1L,"tituloPrueba","textoPrueba","fechaPrueba",1L,1L,1L,1L);
     private CommitRepository cr = new CommitRepository();
 
     @Test
@@ -46,7 +46,7 @@ public class CommitRepositoryTest {
     @Test
     @Order(4)
     public void selectById(){
-        Commits ans = cr.selectCommitById(commitPrueba.get_id()).get();
+        Commits ans = cr.selectCommitById(commitPrueba.getId()).get();
         Assertions.assertEquals(commitPrueba,ans);
     }
 

@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("CommitRepository tests")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class IssueRepositoryTest {
-    private Issue issue = new Issue("test","texto test","2222-22-22", List.of(1L,2L),List.of(1L,2L),1L,1L,false);
+    private Issue issue = new Issue(1L,"test","texto test","2222-22-22", List.of(1L,2L),List.of(1L,2L),1L,1L,false);
     private IssueRepository ir = new IssueRepository();
 
     @Test

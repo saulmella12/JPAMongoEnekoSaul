@@ -9,12 +9,13 @@ import java.util.List;
 
 @Entity
 @NoArgsConstructor
-@Table(name="Departamento")
+@Table(name="Departamentos")
 @NamedQuery(name = "Departamento.findAll", query = "Select d from Departamento d")
 @Data
 public class Departamento {
 
-    @Id private long _id = ObjectId.getCurrentCounter();
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private ObjectId _id;
+    @Column private long id;
     @ElementCollection private List<Long> enCurso;
     @Column private String nombre;
     @Column private long idJefe;
@@ -22,7 +23,8 @@ public class Departamento {
     @ElementCollection private List<Long> finalizados;
     @ElementCollection private List<Long> jefes;
 
-    public Departamento(List<Long> enCurso, String nombre, long idJefe, double presupuesto, List<Long> finalizados, List<Long> jefes) {
+    public Departamento(long id, List<Long> enCurso, String nombre, long idJefe, double presupuesto, List<Long> finalizados, List<Long> jefes) {
+        this.id = id;
         this.enCurso = enCurso;
         this.nombre = nombre;
         this.idJefe = idJefe;

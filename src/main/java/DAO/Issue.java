@@ -13,7 +13,8 @@ import java.util.List;
 @Table(name="Issue")
 @NamedQuery(name = "Issue.findAll", query = "Select i from Issue i")
 public class Issue {
-    @Id private long _id= ObjectId.getCurrentCounter();
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private ObjectId _id;
+    @Column private long id;
     @Column private String titulo;
     @Column private String texto;
     @Column private String fecha;
@@ -23,7 +24,8 @@ public class Issue {
     @Column private long idRepositorio;
     @Column private boolean terminado;
 
-    public Issue(String titulo, String texto, String fecha, List<Long> programadores, List<Long> commits, long idProyecto, long idRepositorio, boolean terminado) {
+    public Issue(long id, String titulo, String texto, String fecha, List<Long> programadores, List<Long> commits, long idProyecto, long idRepositorio, boolean terminado) {
+        this.id = id;
         this.titulo = titulo;
         this.texto = texto;
         this.fecha = fecha;
