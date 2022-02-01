@@ -16,6 +16,8 @@ db.Programador.insert({"id":1,"nombre":"nombrePrueba","alta": "2222-22-22","sala
 db.Programador.insert({"id":2,"nombre":"nombrePrueba2","alta": "2222-22-33","salario": 3000.0,"usuario":"usuarioPrueba1","passwd":"contraseñaPrueba2","idDepartamento":2,"commits":[2],"issues":[2],"tecnologias":["java","python"]});
 db.Programador.insert({"id":3,"nombre":"nombrePrueba3","alta": "2222-22-44","salario": 4000.0,"usuario":"usuarioPrueba2","passwd":"contraseñaPrueba3","idDepartamento":3,"commits":[3],"issues":[3],"tecnologias":["java","python"]});
 db.PivotePP.insert({"idProgramador":1,"idProyecto":1});
+db.PivotePP.insert({"idProgramador":2,"idProyecto":2});
+db.PivotePP.insert({"idProgramador":3,"idProyecto":3});
 db.Proyecto.insert({"id":1,"terminado":true,"idJefe":2,"nombre":"prueba","presupuesto":7645,"fechaInicio":"2222-22-22","fechaFin":"2222-22-22","tecnologias":["java","javascript"],"departamento":1});
 db.Proyecto.insert({"id":2,"terminado":false,"idJefe":2,"nombre":"prueba2","presupuesto":3763,"fechaInicio":"2222-22-33","fechaFin":"2222-22-33","tecnologias":["java","javascript"],"departamento":2});
 db.Proyecto.insert({"id":3,"terminado":true,"idJefe":2,"nombre":"prueba3","presupuesto":12343,"fechaInicio":"2222-22-44","fechaFin":"2222-22-44","tecnologias":["java","javascript"],"departamento":3});
