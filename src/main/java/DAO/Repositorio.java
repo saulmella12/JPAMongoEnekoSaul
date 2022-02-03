@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name="Repositorio")
+@Table(name="repositorio")
 @NamedQuery(name = "Repositorio.findAll", query = "Select r from Repositorio r")
 public class Repositorio {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private ObjectId _id;

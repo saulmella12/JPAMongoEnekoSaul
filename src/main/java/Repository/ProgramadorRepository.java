@@ -64,7 +64,7 @@ public class ProgramadorRepository {
         p = controller.getManager().find(Programador.class, p.get_id());
         controller.getManager().remove(p);
         controller.getTransaction().commit();
-        System.out.println("Elemento Borrado: "+ p.toString());
+        //System.out.println("Elemento Borrado: "+ p.toString());
         controller.close();
         return p;
     }

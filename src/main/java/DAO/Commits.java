@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name="Commits")
+@Table(name="commits")
 @NamedQuery(name = "Commits.findAll", query = "Select c from Commits c")
 public class Commits {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private ObjectId _id;

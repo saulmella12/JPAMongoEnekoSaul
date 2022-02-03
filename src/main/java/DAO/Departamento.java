@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @NoArgsConstructor
-@Table(name="Departamentos")
+@Table(name="departamentos")
 @NamedQuery(name = "Departamento.findAll", query = "Select d from Departamento d")
 @Data
 public class Departamento {

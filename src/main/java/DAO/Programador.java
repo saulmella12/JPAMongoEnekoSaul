@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name="Programador")
+@Table(name="programador")
 @NamedQuery(name = "Programador.findAll", query = "Select p from Programador p")
 public class Programador {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private ObjectId _id;

@@ -17,7 +17,7 @@ public class IssueService {
     }
 
     public IssueDTO getIssueById(long id){
-        return (IssueDTO) repository.selectIssueById(id).stream().map(v->mapper.toDTO(v));
+        return mapper.toDTO(repository.selectById(id));
     }
 
     public IssueDTO postIssue(IssueDTO issueDTO){

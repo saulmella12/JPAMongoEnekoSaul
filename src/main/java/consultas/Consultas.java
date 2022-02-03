@@ -1,6 +1,13 @@
 package consultas;
 
+import DTO.IssueDTO;
+import DTO.dtoEspeciales.DepartamentoAllInfo;
+import DTO.dtoEspeciales.ProyectOnlyIssues;
+import Mapper.DtoToSpecial;
 import service.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Consultas {
 
@@ -11,13 +18,36 @@ public class Consultas {
     ProyectoService pys= new ProyectoService();
     RepositorioService rs = new RepositorioService();
 
-    private void insertData(){
-            cs.postCommit(c);
-            ds.postDepartamento(d);
-            is.postIssue(i);
-            ps.postProgramador(p);
-            pys.postProyecto(py);
-            rs.postRepositorio(r);
+
+
+    public String departamentoWithProjectAndWorkers(long idDepartamento){
+        List<DepartamentoAllInfo> departamentos = ds.getAllDepartamentos().stream().map(v-> DtoToSpecial.getInstance().toDAI(v)).collect(Collectors.toList());
+        return JSONCreator.getInstance().toJSon(departamentos);
+    }
+
+    public String unfinishedIssuesByDepartment(){
+        return "a";
+    }
+    public String notFinishedProyectIssues(){
+        IssueService service = new IssueService();
+        List<IssueDTO> issues = service.getAllIssues().stream().filter(v->!v.isTerminado()).collect(Collectors.toList());
+        List<ProyectOnlyIssues> proyects = issues.stream().map(v->DtoToSpecial.getInstance().toPOI(v,v.getId())).collect(Collectors.toList());
+        return JSONCreator.getInstance().toJSon(proyects);
+    }
+    public String programmersOrderedByCommits(){
+        return "a";
+    }
+
+    public String programmersProductivity(){
+        return "a";
+    }
+
+    public String mostExpensiveProjects(){
+        return "a";
+    }
+
+    public String projectsAllInfo(){
+        return "a";
     }
 
 }
