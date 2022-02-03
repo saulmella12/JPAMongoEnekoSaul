@@ -4,10 +4,7 @@ import DTO.DepartamentoDTO;
 import DTO.IssueDTO;
 import DTO.ProgramadorDTO;
 import DTO.ProyectoDTO;
-import DTO.dtoEspeciales.DepartamentoAllInfo;
-import DTO.dtoEspeciales.ProgramadorLessInfo;
-import DTO.dtoEspeciales.ProyectOnlyIssues;
-import DTO.dtoEspeciales.ProyectoAllInfo;
+import DTO.dtoEspeciales.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,7 +26,7 @@ public class DtoToSpecial {
                 ,p.getProgramadores().stream().map(this::toPLI).collect(Collectors.toList()));
     }
 
-    private ProgramadorLessInfo toPLI(ProgramadorDTO p){
+    public ProgramadorLessInfo toPLI(ProgramadorDTO p){
         return new ProgramadorLessInfo(p.getId(),p.getNombre(),p.getAlta(),p.getSalario(),p.getTecnologias());
     }
 
